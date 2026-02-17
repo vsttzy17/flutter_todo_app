@@ -1,23 +1,29 @@
+enum TodoStatus {
+  todo,
+  inProgress,
+  done,
+}
+
 class Todo {
   final String id;
   final String title;
-  final bool isDone;
+  final TodoStatus status;
 
   Todo({
     required this.id,
     required this.title,
-    this.isDone = false,
+    this.status = TodoStatus.todo,
   });
 
   Todo copyWith({
     String? id,
     String? title,
-    bool? isDone,
+    TodoStatus? status,
   }) {
     return Todo(
       id: id ?? this.id,
       title: title ?? this.title,
-      isDone: isDone ?? this.isDone,
+      status: status ?? this.status,
     );
   }
 
@@ -25,7 +31,7 @@ class Todo {
     return {
       'id': id,
       'title': title,
-      'isDone': isDone,
+      'status': status.index,
     };
   }
 
@@ -33,7 +39,7 @@ class Todo {
     return Todo(
       id: map['id'],
       title: map['title'],
-      isDone: map['isDone'],
+      status: TodoStatus.values[map['status'] ?? 0],
     );
   }
 }
