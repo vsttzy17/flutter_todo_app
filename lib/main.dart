@@ -188,11 +188,25 @@ class _TodoPageState extends ConsumerState<TodoPage> {
                 Navigator.pop(context);
               }
 
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Todo berhasil ditambahkan'),
-                ),
-              );
+              ScaffoldMessenger.of(context)
+                ..clearSnackBars() // hapus antrian lama biar ga delay
+                ..showSnackBar(
+                  const SnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.green,
+                    duration: Duration(seconds: 2),
+                    content: Row(
+                      children: [
+                        Icon(Icons.check_circle, color: Colors.white),
+                        SizedBox(width: 10),
+                        Text(
+                          'Todo berhasil ditambahkan',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
 
             },
             child: const Text('Tambah'),
